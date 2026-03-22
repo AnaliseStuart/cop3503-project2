@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IP Search</title>
+    <link rel ="stylesheet" href="webpage.css">
+</head>
+<body>
+    <nav class = "navbar">
+        <div class = "controls"> <input type="text" id="ip_in" placeholder="ex:000.000.0.0">
+            <button id="search-btn" class="primary">Start Search</button>
+            <button id="clear-btn" class="secondary">Clear Input</button>
+        </div>
+        <div class = "timer_container">  
+            Time to Complete the Search: <span id="timer">0.0000</span> seconds
+        </div>
+    </nav>
+    <div class = "visualization">
+        <div class="searchPanel dfs-panel"> <div class="label">Depth First Search - DFS</div> 
+            <div class = "canvas">
+                <img src = "/animations/dfs_animation.gif" id="dfs_gif" class = "gifs_styling">
+            </div>
+        </div>
+        <div class="searchPanel bfs-panel"> <div class="label">Breadth First Search - BFS</div> 
+            <div class = "canvas">
+                <img src = "/animations/bfs_animation.gif" id="bfs_gif" class = "gifs_styling">
+            </div>
+        </div>
+    </div>
+    <script src="webpage.js"></script>
+</body>
+</html>
