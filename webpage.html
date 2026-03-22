@@ -7,23 +7,25 @@
 </head>
 <body>
     <nav class = "navbar">
-        <div class = "controls"> <input type="text" id="ip_in" placeholder="ex:000.000.0.0">
+        <div class = "controls"> <input type="text" id="ip_in" placeholder="ex:192.168.9.6">
             <button id="search-btn" class="primary">Start Search</button>
             <button id="clear-btn" class="secondary">Clear Input</button>
         </div>
         <div class = "timer_container">  
-            Time to Complete the Search: <span id="timer">0.0000</span> seconds
+            Time to Complete the Search: <span id="timer">0.00</span> seconds
         </div>
     </nav>
     <div class = "visualization">
         <div class="searchPanel dfs-panel"> <div class="label">Depth First Search - DFS</div> 
             <div class = "canvas">
                 <img src = "/animations/dfs_animation.gif" id="dfs_gif" class = "gifs_styling">
+                <canvas id = "dfs_canvas" class = "freeze_canvas"></canvas>
             </div>
         </div>
         <div class="searchPanel bfs-panel"> <div class="label">Breadth First Search - BFS</div> 
             <div class = "canvas">
                 <img src = "/animations/bfs_animation.gif" id="bfs_gif" class = "gifs_styling">
+                <canvas id = "bfs_canvas" class = "freeze_canvas"></canvas>
             </div>
         </div>
     </div>
