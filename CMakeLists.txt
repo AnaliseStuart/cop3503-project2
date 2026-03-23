@@ -7,4 +7,5 @@ add_executable(cop3503_project2 main.cpp
         IPA_Loader.cpp
         IPA_Loader.h
         Binary_Tree_Maker.cpp
-        Binary_Tree_Maker.h)
+        Binary_Tree_Maker.h
+)

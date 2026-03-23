@@ -19,6 +19,10 @@ public:
     Binary_Tree_Maker();
     //returns the root
     TreeNode* getRoot();
+    //searches for the entered IPA through a depth first traversal
+    TreeNode* depthFirstSearch(TreeNode* current_node, IPA data);
+    //searches for the entered IPA through a breadth first traversal
+    TreeNode* breadthFirstSearch(TreeNode* current_node, IPA data);
 
 private:
     //pointer to a TreeNode
