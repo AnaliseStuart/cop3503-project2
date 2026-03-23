@@ -21,11 +21,11 @@ void Binary_Tree_Maker::tree_builder(vector<IPA> ipas){
     }
 }
 
-Binary_Tree_Maker::TreeNode *Binary_Tree_Maker::depthFirstSearch(TreeNode *current_node, IPA data) {
+Binary_Tree_Maker::TreeNode *Binary_Tree_Maker::depthFirstSearch(TreeNode *current_node, string data) {
     if (current_node == NULL) {
         return current_node;
     }
-    if (current_node->data == data) {
+    if (current_node->data.ip == data) {
         return current_node;
     }
     TreeNode *left = depthFirstSearch(current_node->left, data);
@@ -36,6 +36,7 @@ Binary_Tree_Maker::TreeNode *Binary_Tree_Maker::depthFirstSearch(TreeNode *curre
     return right;
 }
 
+/*
 Binary_Tree_Maker::TreeNode *Binary_Tree_Maker::breadthFirstSearch(TreeNode *current_node, IPA data) {
     queue <TreeNode*> q;
     q.push(current_node);
@@ -56,6 +57,7 @@ Binary_Tree_Maker::TreeNode *Binary_Tree_Maker::breadthFirstSearch(TreeNode *cur
         }
     }
 }
+*/
 
 //constructs an empty tree
 Binary_Tree_Maker::Binary_Tree_Maker(){n = nullptr;}
