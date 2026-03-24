@@ -1,4 +1,5 @@
 #include "Hash_Map_Traversal.h"
+#include <chrono>
 
 //hash map constructor
 Hash::Hash(int s):size(s), map(s){}
@@ -25,7 +26,18 @@ void Hash::insert(string key, Country_Info value){
 
 //finds how many ipas are in a specific country
 Progress Hash::hash_country_traversal(const string& country){
+    auto start = std::chrono::high_resolution_clock::now();
     Progress p;
-    //traversal code
+    for (int i = 0; i < size; i++) {
+        for (auto j: map[i]) {
+            if (j.second.country == country) {
+                p.num_matches += 1;
+            }
+            p.node_progress += 1;
+        }
+    }
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+    p.time = duration.count();
     return p;
 }
