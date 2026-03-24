@@ -11,10 +11,10 @@ int Hash::assign_hash(string key){
 }
 
 //inserts a new key and value
-void Hash::insert(string key, Structs value){
+void Hash::insert(string key, Country_Info value){
     int i = assign_hash(key);
-    vector<pair<string, Structs>> &container = map[i];
-    for (pair<string, Structs> &element:container){
+    vector<pair<string, Country_Info>> &container = map[i];
+    for (pair<string, Country_Info> &element:container){
         if (element.first == key){
             element.second = value;
             return;

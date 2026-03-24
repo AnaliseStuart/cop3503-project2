@@ -10,5 +10,5 @@ add_executable(cop3503_project2 main.cpp
         Hash_Map_Traversal.cpp
         Trie_Traversal.cpp
         Trie_Traversal.h
-        Structs.h
+        Country_Info.h
 )

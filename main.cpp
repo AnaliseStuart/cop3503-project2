@@ -11,7 +11,7 @@ int main(){
     Hash h;
     Trie_Traversal t;
     for (int i=0; i<ipas.size(); i++){
-        Structs info;
+        Country_Info info;
         info.country = ipas[i].country;
         h.insert(ipas[i].ip, info);
         t.insert(ipas[i].ip, info);

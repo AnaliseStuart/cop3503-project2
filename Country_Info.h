@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-struct Structs{string country;};
+struct Country_Info{string country;};
 
 struct Progress{
     int node_progress = 0;

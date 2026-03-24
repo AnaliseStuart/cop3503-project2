@@ -9,7 +9,7 @@ Node::Node(){
 //creates a new root to build a trie
 Trie_Traversal::Trie_Traversal(){root = new Node();}
 
-void Trie_Traversal::insert(string key, Structs value){
+void Trie_Traversal::insert(string key, Country_Info value){
     Node* current = root;
     for (int i=0; i<key.length(); i++){
         int ind = getIndex(key[i]);
