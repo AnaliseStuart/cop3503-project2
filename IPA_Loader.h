@@ -6,7 +6,7 @@ using namespace std;
 //struct containing the information of each individual IPA
 struct IPA{
     string ip;
-    int asn;
+    string country;
 };
 
 //checks if the file is open, loads the file, and extracts the necessary information

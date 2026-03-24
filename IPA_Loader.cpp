@@ -8,18 +8,13 @@ vector<IPA> IPA_Loader::load_file(string f){
     ifstream file(f);
     if(!file.is_open()){return ipas;}
     string line;
-    getline(file, line);
     while (getline(file, line)){
         IPA ipa;
-        string end;
-        string asn;
-        string org;
-        stringstream line_seperator(line);
-        getline(line_seperator, ipa.ip, ',');
-        getline(line_seperator, end, ',');
-        getline(line_seperator, asn, ',');
-        getline(line_seperator, org, ',');
-        ipa.asn = stoi(asn);
+        string skip;
+        stringstream line_separator(line);
+        getline(line_separator, ipa.ip, ',');
+        getline(line_separator, skip, ',');
+        getline(line_separator, ipa.country, ',');
         ipas.push_back(ipa);
     }
     return ipas;
