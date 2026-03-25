@@ -1,17 +1,19 @@
 const trieTimer = document.getElementById('trie-timer');
 const hashTimer = document.getElementById('hash-timer');
 const country_in = document.getElementById('country_in');
-const trieBar = document.getElementById('trie-bar');
-const hashBar = document.getElementById('hash-bar');
+const trieBar = document.getElementById('trie-progress');
+const hashBar = document.getElementById('hash-progress');
 const searchButton = document.getElementById('search-btn');
 const clearButton = document.getElementById('clear-btn');
 const sc = document.getElementById('scrollable_country');
 const infoButton = document.getElementById('info-btn');
-const closeBtton = document.getElementById('close_country');
+const closeButton = document.getElementById('close_country');
 const countryBody = document.getElementById('country-table-body');
+const trieCount = document.getElementById('trie-count');
+const hashCount = document.getElementById('hash-count');
 
 let searchActive = false;
-const dataset = new Array(100000).fill("datapoint");
+const dataset = [];
 
 const countryData = [
     {abbr: "AD", name: "Andorra"}, {abbr: "AE", name: "United Arab Emirates"},
@@ -139,6 +141,20 @@ const countryData = [
     {abbr: "ZM", name: "Zambia"}, {abbr: "ZW", name: "Zimbabwe"}
 ];
 
+function initDataset(){
+    const total = 241715;
+    dataset.length = 0; 
+    for(let i = 0; i < total; i++){
+        const randomCountry = countryData[Math.floor(Math.random() * countryData.length)];
+        dataset.push({
+            ip: `${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 255)}.0.0`,
+            country: randomCountry.abbr
+        });
+    }
+}
+
+initDataset();
+
 
 function populateCountryTable() {
     countryBody.innerHTML = countryData.map(country => `
@@ -153,7 +169,7 @@ infoButton.onclick = function() {
     populateCountryTable();
     sc.style.display = 'block';
 };
-closeBtton.onclick = function() {
+closeButton.onclick = function() {
     sc.style.display = 'none';
 }
 
@@ -169,34 +185,50 @@ let timerInterval;
 
 async function runTrieSearch(targetCountry) {
     const startTime = performance.now();
+    let matches = 0;
     const total = dataset.length;
-    for (let i = 0; i <= total; i++) {
+    for (let i = 0; i < total; i++) {
         if (!searchActive) return; // Stop if search is cleared
 
-        //insert logic 
+        if(dataset[i] && dataset[i].country.toLowerCase() === targetCountry.toLowerCase()){
+            matches++;
+        }
+
         if(i % 500 === 0 || i === total - 1){
             const elapsed = (performance.now() - startTime) / 1000;
-            trieTimer.textContent = `Time: ${elapsed.toFixed(4)}s`;
+            trieTimer.textContent = elapsed.toFixed(4);
+            trieCount.textContent = (i + 1).toLocaleString();
             trieBar.style.width = `${((i + 1) / total) * 100}%`;
             await new Promise(resolve => setTimeout(resolve, 0)); 
         }
     }
+    return matches;
 }
 
 async function runHashSearch(targetCountry) {
     const startTime = performance.now();
+    let matches = 0;
     const total = dataset.length;
+    const hashsize = 500000;
 
     for (let i = 0; i < total; i++) {
         if (!searchActive) break;
-    //insert logic
+
+        if (dataset[i] && dataset[i].country.toLowerCase() === targetCountry.toLowerCase()) {
+            matches++;
+        }
+
         if (i % 500 === 0 || i === total - 1) {
             const elapsed = (performance.now() - startTime) / 1000;
             hashTimer.textContent = elapsed.toFixed(4);
-            hashBar.style.width = ((i + 1) / total * 100) + "%";
+            hashCount.textContent = (i + 1).toLocaleString();
+            if(hashBar){
+                hashBar.style.width = `${((i + 1) / total) * 100}%`;;
+            }
             await new Promise(resolve => setTimeout(resolve, 0));
             }
         }
+        return matches;
     }
 
 async function startSearch() {
@@ -205,19 +237,21 @@ async function startSearch() {
         alert('Please enter a country name.');
         return;
     }
-    // unfreezeCanvas(dfs_gif, dfs_canvas);
-    // unfreezeCanvas(bfs_gif, bfs_canvas);
-    // const time_t = new Date().getTime();
-    // dfs_gif.src = `animations/dfs_animation.gif?v=${time_t}`;
-    // bfs_gif.src = `animations/bfs_animation.gif?v=${time_t}`;
-    // let start_time = performance.now();
     searchActive = true;
     searchButton.disabled = true;
-    const dataset = new Array(100000).fill("datapoint");
-    await Promise.all([
+    const [trieMatches, hashMatches] = await Promise.all([
         runTrieSearch(country), 
         runHashSearch(country)
     ]);
+
+    if(searchActive){
+        setTimeout(() => {
+        alert(`Search complete for "${country}"!\nTrie Matches: ${trieMatches}\nHash Matches: ${hashMatches}`);
+        searchButton.disabled = false;
+    }, 100);
+    } else{
+        searchButton.disabled = false;
+    }
     searchActive = false;
     searchButton.disabled = false;
 }
@@ -227,6 +261,8 @@ function clearBoard(){
     country_in.value = '';
     trieTimer.textContent = 'Time: 0.0000s';
     hashTimer.textContent = 'Time: 0.0000s';
+    trieCount.textContent = '0'; 
+    hashCount.textContent = '0'; 
     trieBar.style.width = '0%';
     hashBar.style.width = '0%';
     searchButton.disabled = false;
