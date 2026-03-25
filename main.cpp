@@ -6,7 +6,7 @@
 int main(){
     //loads data and inserts it into a new tre
     IPA_Loader load;
-    vector<IPA> ipas = load.load_file("data/geolite2-city-ipv4.csv");
+    vector<IPA> ipas = load.load_file("data/geo-whois-asn-country-ipv4.csv");
     //inserts data into hash and trie
     Hash h;
     Trie_Traversal t;

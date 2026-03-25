@@ -14,7 +14,7 @@ vector<IPA> IPA_Loader::load_file(string f){
         stringstream line_separator(line);
         getline(line_separator, ipa.ip, ',');
         getline(line_separator, skip, ',');
-        getline(line_separator, ipa.country, ',');
+        getline(line_separator, ipa.country);
         ipas.push_back(ipa);
     }
     return ipas;
