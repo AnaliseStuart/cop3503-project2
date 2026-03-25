@@ -13,6 +13,7 @@ const trieCount = document.getElementById('trie-count');
 const hashCount = document.getElementById('hash-count');
 
 let searchActive = false;
+let winner = "";
 const dataset = [];
 
 const countryData = [
@@ -202,6 +203,7 @@ async function runTrieSearch(targetCountry) {
             await new Promise(resolve => setTimeout(resolve, 0)); 
         }
     }
+    if (!winner) winner = "Trie Search";
     return matches;
 }
 
@@ -228,6 +230,7 @@ async function runHashSearch(targetCountry) {
             await new Promise(resolve => setTimeout(resolve, 0));
             }
         }
+        if (!winner) winner = "Hash Map Search";
         return matches;
     }
 
@@ -237,6 +240,8 @@ async function startSearch() {
         alert('Please enter a country name.');
         return;
     }
+
+    winner = "";
     searchActive = true;
     searchButton.disabled = true;
     const [trieMatches, hashMatches] = await Promise.all([
@@ -246,7 +251,17 @@ async function startSearch() {
 
     if(searchActive){
         setTimeout(() => {
-        alert(`Search complete for "${country}"!\nTrie Matches: ${trieMatches}\nHash Matches: ${hashMatches}`);
+        const trie_complete = parseFloat(trieTimer.textContent);
+        const hash_complete = parseFloat(hashTimer.textContent);
+        let result = "";
+        if(trie_complete < hash_complete){
+            result = "Trie Search was faster with a time of " + trie_complete.toFixed(4) + "s!";
+        } else if (hash_complete < trie_complete){
+            result = "Hash Map Search was faster with a time of " + hash_complete.toFixed(4) + "s!";
+        } else{
+            result = "Both searches completed in the same time with a time of " + trie_complete.toFixed(4) + "s!";
+        }
+        alert(`Search complete for "${country}"!\nTrie Matches: ${trieMatches}\nHash Matches: ${hashMatches}\n${result}`);
         searchButton.disabled = false;
     }, 100);
     } else{
