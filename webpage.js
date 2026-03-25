@@ -3,13 +3,15 @@ const hashTimer = document.getElementById('hash-timer');
 const country_in = document.getElementById('country_in');
 const trieBar = document.getElementById('trie-bar');
 const hashBar = document.getElementById('hash-bar');
-const globalStatus = document.getElementById('global-status');
 const searchButton = document.getElementById('search-btn');
 const clearButton = document.getElementById('clear-btn');
 const sc = document.getElementById('scrollable_country');
 const infoButton = document.getElementById('info-btn');
 const closeBtton = document.getElementById('close_country');
 const countryBody = document.getElementById('country-table-body');
+
+let searchActive = false;
+const dataset = new Array(100000).fill("datapoint");
 
 const countryData = [
     {abbr: "AD", name: "Andorra"}, {abbr: "AE", name: "United Arab Emirates"},
@@ -162,22 +164,21 @@ window.onclick = function(event) {
 }
 
 let timerInterval;
-let searchActive = false;
 
 
 
 async function runTrieSearch(targetCountry) {
     const startTime = performance.now();
-    // const total = Dataset.length;
+    const total = dataset.length;
     for (let i = 0; i <= total; i++) {
         if (!searchActive) return; // Stop if search is cleared
 
         //insert logic 
-        if(1 % 500 === 0 || i === total - 1){
+        if(i % 500 === 0 || i === total - 1){
             const elapsed = (performance.now() - startTime) / 1000;
             trieTimer.textContent = `Time: ${elapsed.toFixed(4)}s`;
             trieBar.style.width = `${((i + 1) / total) * 100}%`;
-            await new Promise(r => setTimeout(resolve, 0)); 
+            await new Promise(resolve => setTimeout(resolve, 0)); 
         }
     }
 }
