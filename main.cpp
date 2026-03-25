@@ -2,7 +2,6 @@
 #include "Hash_Map_Traversal.h"
 #include "Trie_Traversal.h"
 
-//sean says hi realin
 int main(){
     //loads data and inserts it into a new tre
     IPA_Loader load;
