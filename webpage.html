@@ -7,28 +7,49 @@
 </head>
 <body>
     <nav class = "navbar">
-        <div class = "controls"> <input type="text" id="ip_in" placeholder="ex:192.168.9.6">
+        <div class = "controls"> <input type="text" id="country_in" placeholder="ex:USA, CAN, MEX...">
             <button id="search-btn" class="primary">Start Search</button>
             <button id="clear-btn" class="secondary">Clear Input</button>
-        </div>
-        <div class = "timer_container">  
-            Time to Complete the Search: <span id="timer">0.00</span> seconds
+            <button id = "info-btn" class = "secondary">Info on Valid Countries</button>
         </div>
     </nav>
     <div class = "visualization">
-        <div class="searchPanel dfs-panel"> <div class="label">Depth First Search - DFS</div> 
+        <div class="searchPanel trie-panel"> <div class="label">Trie Search</div> 
             <div class = "canvas">
-                <img src = "/animations/dfs_animation.gif" id="dfs_gif" class = "gifs_styling">
-                <canvas id = "dfs_canvas" class = "freeze_canvas"></canvas>
+                <div class = "stats">
+                    <p>Time: <span id="trie-timer">0.0000</span> seconds</p> <div class = "progress">
+                        <div class = "progress-bar" id="trie-progress"></div></div>
+                    <p class = "processed_text">IP's Processed: <span id = "trie-count">0</span></p>
+                </div>
             </div>
         </div>
-        <div class="searchPanel bfs-panel"> <div class="label">Breadth First Search - BFS</div> 
+        <div class="searchPanel hash-panel"> <div class="label">Hash Table Search</div> 
             <div class = "canvas">
-                <img src = "/animations/bfs_animation.gif" id="bfs_gif" class = "gifs_styling">
-                <canvas id = "bfs_canvas" class = "freeze_canvas"></canvas>
+                <div class = "stats">
+                    <p>Time: <span id="hash-timer">0.0000</span> seconds</p> <div class = "progress">
+                        <div class = "progress-bar" id="hash-progress"></div></div>
+                    <p class = "processed_text">IP's Processed: <span id = "hash-count">0</span></p>
+                </div>
             </div>
         </div>
     </div>
+    <div id = "country" class = "scrollable_country">
+        <div class = "country_content">
+            <div class = "country_header">
+                <h2>Valid Countries</h2>
+                <span class = "close_country">&times;</span></div>
+            <div class = "country_body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th> Abbreviation</th>
+                            <th> Country Name</th>
+                        </tr>
+                    </thead>
+                    <tbody id = "country-table-body">
+                    </tbody>
+                </table>
+            </div>
     <script src="webpage.js"></script>
 </body>
 </html>
